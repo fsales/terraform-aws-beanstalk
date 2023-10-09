@@ -1,0 +1,12 @@
+{
+    "Image": {
+      "Name": "145439845532.dkr.ecr.us-west-2.amazonaws.com/producao:v1"
+    },
+    "Ports": [
+      {
+        "ContainerPort": 8000,
+        "HostPort": 8000
+      }
+    ]
+  }
+            
