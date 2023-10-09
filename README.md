@@ -52,7 +52,19 @@ terraform apply
 terraform apply
 ```
 4. atualizar a versão atraves do CLI da AWS 
-   
+
+* Produção 
 ```sh
 aws elasticbeanstalk update-environment --environment-name ambiente-producao --version-label ambiente-producao
+```
+
+* homologação
+```sh
+aws elasticbeanstalk update-environment --environment-name ambiente-homologacao --version-label ambiente-homologacao
+```
+
+# Remover ambiente AWS
+
+```sh
+terraform destroy
 ```
