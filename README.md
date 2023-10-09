@@ -1,5 +1,9 @@
 # Terraform - AWS
 
+## Curso Alura
+1. [Infraestrutura como código: Docker e Elastic Beanstalk na AWS](https://cursos.alura.com.br/course/infraestrutura-codigo-docker-elastic-beanstalk-aws)
+
+
  ## Criar arquivo de estado do Terraform
 
  1. criar buckte no S3
@@ -42,3 +46,13 @@ terraform apply
 
 1. criar o arquivo Dockerrun.aws
 2. criar uma arquivo zip para subir o Dockerrun.aws para AWS Beanstalk
+3. aplicar as alterações na AWS.
+
+```sh
+terraform apply
+```
+4. atualizar a versão atraves do CLI da AWS 
+   
+```sh
+aws elasticbeanstalk update-environment --environment-name ambiente-producao --version-label ambiente-producao
+```

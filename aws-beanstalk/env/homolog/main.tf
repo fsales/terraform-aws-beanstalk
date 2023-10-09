@@ -1,5 +1,5 @@
 module "homologacao" {
-  source = "../../infra"
+  source = "../infra"
 
   nome = "homologacao"
   descricao = "aplicacao-homologacao"
