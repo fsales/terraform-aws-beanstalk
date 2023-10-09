@@ -1,5 +1,5 @@
 module "producao" {
-  source = "../../infra"
+  source = "../infra"
 
   nome = "producao"
   descricao = "aplicacao-producao"
