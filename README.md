@@ -3,17 +3,20 @@
 ## Curso Alura
 1. [Infraestrutura como código: Docker e Elastic Beanstalk na AWS](https://cursos.alura.com.br/course/infraestrutura-codigo-docker-elastic-beanstalk-aws)
 
+2. [Infraestrutura como código: Terraform, Docker e Elastic Container Service](https://cursos.alura.com.br/course/infraestrutura-codigo-terraform-docker-elastic-container-service-aws)
 
  ## Criar arquivo de estado do Terraform
 
  1. criar buckte no S3
     a. nome: **terrafomr-state-park-tech**
 
-2. deixar as demais configurações padrões.
+1. deixar as demais configurações padrões.
 
 ## Terraform Backend S3
 1. [Example Configuration
 ](https://developer.hashicorp.com/terraform/language/settings/backends/s3)
+
+Obs.: O Buckets deve ser criando antes de aplicar as alterações via terraform.
 
 ## iniciar execução
 1. configurar a credencial do CLI da AWS.
