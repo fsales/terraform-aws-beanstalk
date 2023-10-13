@@ -8,3 +8,7 @@ variable "nome_repositorio" {
 variable "cargoIAM" {
   type = string
 }
+
+variable "ambiente" {
+  type = string
+}
