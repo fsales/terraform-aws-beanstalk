@@ -15,7 +15,7 @@ module "ecs" {
   fargate_capacity_providers = {
     FARGATE = {
       default_capacity_provider_strategy = {
-        weight = 3
+        weight = 50
       }
     }
   }
@@ -60,5 +60,16 @@ resource "aws_ecs_service" "django_api_srv" {
     container_port   = 8000
   }
 
+  ## Criar network (obrigatório quando trabalha com VPC)
+  network_configuration {
+      subnets = module.vpc.private_subnets
+      security_groups = [aws_security_group.privado.id]
+  }
 
+  ## 
+  capacity_provider_strategy {
+      capacity_provider = "FARGATE"
+      weight = 1 #100/100
+  }
 }
+
