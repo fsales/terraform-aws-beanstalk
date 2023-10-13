@@ -1,8 +1,8 @@
 ## Criando load balancer
-resource "aws_lb" "alb" {
-  name               = "ecs-django-alb"
+resource "aws_lb" "alb_ecs" {
+  name               = "alb-ecs-django"
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.alb.id]
+  security_groups    = [aws_security_group.sg_alb_ecs.id]
   subnets            = module.vpc.public_subnets
 
 }
@@ -11,19 +11,19 @@ resource "aws_lb" "alb" {
 
 ## Criar Listener Load Balancer - entrada
 resource "aws_lb_listener" "http" {
-  load_balancer_arn = aws_lb.alb.arn
+  load_balancer_arn = aws_lb.alb_ecs.arn
   port              = "8000"
   protocol          = "HTTP"
   
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.ecs_django_tg.arn
+    target_group_arn = aws_lb_target_group.tg_ecs_django.arn
   }
 }
 
 ## Criando Target Group
-resource "aws_lb_target_group" "ecs_django_tg" {
-  name        = "ecs-django-tg"
+resource "aws_lb_target_group" "tg_ecs_django" {
+  name        = "tg-ecs-django"
   port        = 8000
   protocol    = "HTTP"
   target_type = "ip"
@@ -33,5 +33,5 @@ resource "aws_lb_target_group" "ecs_django_tg" {
 
 ## exibir o DNS do Load Balancer
 output "ip" {
- value = aws_lb.alb.dns_name 
+ value = aws_lb.alb_ecs.dns_name 
 }

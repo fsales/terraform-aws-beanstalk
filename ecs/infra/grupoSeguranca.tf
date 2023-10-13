@@ -1,6 +1,6 @@
 ################ Criando grupo de segurança rede publica###############################
-resource "aws_security_group" "alb" {
-  name        = "alb_ecs"
+resource "aws_security_group" "sg_alb_ecs" {
+  name        = "alb-ecs"
   vpc_id      = module.vpc.vpc_id
 }
 
@@ -11,7 +11,7 @@ resource "aws_security_group_rule" "entrada_alb" {
   to_port           = 8000
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = aws_security_group.alb.id
+  security_group_id = aws_security_group.sg_alb_ecs.id
 }
 
 
@@ -21,7 +21,7 @@ resource "aws_security_group_rule" "saida_alb" {
   to_port           = 0
   protocol          = "-1"
   cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = aws_security_group.alb.id
+  security_group_id = aws_security_group.sg_alb_ecs.id
 }
 
 
@@ -32,16 +32,16 @@ resource "aws_security_group" "privado" {
 }
 
 ## Criando regras
-resource "aws_security_group_rule" "entrada_ecs" {
+resource "aws_security_group_rule" "entrada_alb_ecs" {
   type                           = "ingress"
   from_port                      = 0
   to_port                        = 0
   protocol                       = "-1"
-  source_security_group_id       = aws_security_group.alb.id
+  source_security_group_id       = aws_security_group.sg_alb_ecs.id
   security_group_id = aws_security_group.privado.id
 }
 
-resource "aws_security_group_rule" "saida_ecs" {
+resource "aws_security_group_rule" "saida_alb_ecs" {
   type              = "egress"
   from_port         = 0
   to_port           = 0

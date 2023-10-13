@@ -48,14 +48,14 @@ resource "aws_ecs_task_definition" "django_api_tks" {
 }
 
 # service
-resource "aws_ecs_service" "django_api_srv" {
-  name            = "django-api-srv"
+resource "aws_ecs_service" "django_api_ecs_svc" {
+  name            = "django-api-ecs-svc"
   cluster         = module.ecs.cluster_id
   task_definition = aws_ecs_task_definition.django_api_tks.arn
   desired_count   = 3
      
   load_balancer {
-    target_group_arn = aws_lb_target_group.ecs_django_tg.arn
+    target_group_arn = aws_lb_target_group.tg_ecs_django.arn
     container_name   = "producao"
     container_port   = 8000
   }
