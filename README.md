@@ -39,6 +39,10 @@ terraform init
 terraform plan
 ```
 
+```sh
+terraform plan -var-file=secret.tfvars
+```
+
 5. aplicar as alterações na AWS.
 
 ```sh
@@ -47,6 +51,11 @@ terraform apply
 
 ```sh
 terraform apply -auto-approve
+```
+
+
+```sh
+terraform apply -var-file=secret.tfvars
 ```
 
 ## Deploy
@@ -75,7 +84,9 @@ aws elasticbeanstalk update-environment --environment-name ambiente-homologacao 
 ```sh
 terraform destroy
 ```
-
+```sh
+terraform destroy -var-file=secret.tfvars
+```
 
 ## VPC - Virtual Private Cloud
 
