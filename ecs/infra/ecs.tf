@@ -18,8 +18,18 @@ module "ecs" {
         weight = 50
       }
     }
+    FARGATE_SPOT = {
+      default_capacity_provider_strategy = {
+        weight = 50
+      }
+    }
   }
-
+  tags = {
+    Terraform = "true"
+    Environment = "${var.ambiente}"
+    nomeResource = "${var.nomeResource}"
+    containerName = "${var.containerName}"
+  }
 }
 
 # task definition
@@ -44,13 +54,19 @@ resource "aws_ecs_task_definition" "app_api_tks" {
         }
       ],
       "environment" = [
-        for env_name, env_value in var.environment : {
-          name  = env_value.name
-          value = env_value.value
+        for env in var.environment : {
+          name  = env.name
+          value = env.value
         }
       ]
     }
   ])
+  tags = {
+    Terraform = "true"
+    Environment = "${var.ambiente}"
+    nomeResource = "${var.nomeResource}"
+    containerName = "${var.containerName}"
+  }
 }
 
 # service
@@ -58,7 +74,7 @@ resource "aws_ecs_service" "app_api_ecs_svc" {
   name            = "svc-ecs-api-${var.nomeResource}"
   cluster         = module.ecs.cluster_id
   task_definition = aws_ecs_task_definition.app_api_tks.arn
-  desired_count   = 3
+  desired_count   = 1
 
   load_balancer {
     target_group_arn = aws_lb_target_group.tg_ecs_app.arn
@@ -76,6 +92,18 @@ resource "aws_ecs_service" "app_api_ecs_svc" {
   capacity_provider_strategy {
     capacity_provider = "FARGATE"
     weight            = 1 #100/100
+  }
+
+  capacity_provider_strategy {
+    capacity_provider = "FARGATE_SPOT"
+    weight            = 1 #100/100
+  }
+
+  tags = {
+    Terraform = "true"
+    Environment = "${var.ambiente}"
+    nomeResource = "${var.nomeResource}"
+    containerName = "${var.containerName}"
   }
 }
 

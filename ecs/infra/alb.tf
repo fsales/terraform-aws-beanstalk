@@ -4,7 +4,12 @@ resource "aws_lb" "alb_ecs" {
   load_balancer_type = "application"
   security_groups    = [aws_security_group.sg_alb_ecs.id]
   subnets            = module.vpc.public_subnets
-
+  tags = {
+    Terraform = "true"
+    Environment = "${var.ambiente}"
+    nomeResource = "${var.nomeResource}"
+    containerName = "${var.containerName}"
+  }
 }
 
 
@@ -19,6 +24,13 @@ resource "aws_lb_listener" "http" {
     type             = "forward"
     target_group_arn = aws_lb_target_group.tg_ecs_app.arn
   }
+
+  tags = {
+    Terraform = "true"
+    Environment = "${var.ambiente}"
+    nomeResource = "${var.nomeResource}"
+    containerName = "${var.containerName}"
+  }
 }
 
 ## Criando Target Group
@@ -32,6 +44,13 @@ resource "aws_lb_target_group" "tg_ecs_app" {
     create_before_destroy = true
     ignore_changes        = [name]
   }
+
+  tags = {
+    Terraform = "true"
+    Environment = "${var.ambiente}"
+    nomeResource = "${var.nomeResource}"
+    containerName = "${var.containerName}"
+  } 
 }
 
 

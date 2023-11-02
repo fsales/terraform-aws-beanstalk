@@ -18,7 +18,12 @@ resource "aws_iam_role" "cargo" {
       },
     ]
   })
-
+  tags = {
+    Terraform = "true"
+    Environment = "${var.ambiente}"
+    nomeResource = "${var.nomeResource}"
+    containerName = "${var.containerName}"
+  }
 }
 
 ## criando a policy
@@ -49,4 +54,10 @@ resource "aws_iam_role_policy" "ecs_ecr" {
 resource "aws_iam_instance_profile" "perfil" {
   name = "${var.cargoIAM}_perfil"
   role = aws_iam_role.cargo.name
+  tags = {
+    Terraform = "true"
+    Environment = "${var.ambiente}"
+    nomeResource = "${var.nomeResource}"
+    containerName = "${var.containerName}"
+  }
 }

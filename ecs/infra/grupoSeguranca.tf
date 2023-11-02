@@ -2,6 +2,12 @@
 resource "aws_security_group" "sg_alb_ecs" {
   name        = "alb-ecs"
   vpc_id      = module.vpc.vpc_id
+  tags = {
+    Terraform = "true"
+    Environment = "${var.ambiente}"
+    nomeResource = "${var.nomeResource}"
+    containerName = "${var.containerName}"
+  }
 }
 
 ## Criando regras
@@ -29,6 +35,12 @@ resource "aws_security_group_rule" "saida_alb" {
 resource "aws_security_group" "privado" {
   name        = "privado_ecs"
   vpc_id      = module.vpc.vpc_id
+  tags = {
+    Terraform = "true"
+    Environment = "${var.ambiente}"
+    nomeResource = "${var.nomeResource}"
+    containerName = "${var.containerName}"
+  }
 }
 
 ## Criando regras

@@ -12,6 +12,8 @@ module "vpc" {
   
   tags = {
     Terraform = "true"
-    Environment = "dev"
+    Environment = "${var.ambiente}"
+    nomeResource = "${var.nomeResource}"
+    containerName = "${var.containerName}"
   }
 }
