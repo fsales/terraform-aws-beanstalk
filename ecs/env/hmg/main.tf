@@ -1,16 +1,19 @@
 module "hmg" {
   source = "../../infra"
 
+  nomeResource     = "park-tech"
+
   nome_repositorio = "homologacao"
   cargoIAM         = "homologacao"
   ambiente         = "homologacao"
-  containerPort    = 8080
+  
   hostPort         = 8080
   albPort          = 8080
-  nomeResource     = "park-tech"
+  
   containerName    = "park-tech"
-
-
+  image            = "docker.io/fosales/park-tech"
+  tag              = "0.0.1.6"
+  containerPort    = 8080
   environment = {
     "PROFILE_ENVIRONMENT" = {
       name  = "PARK_TECH_PROFILE_ENVIRONMENT",
@@ -25,6 +28,7 @@ module "hmg" {
       value = var.uriDatabase
     }
   }
+
 }
 
 output "ip_abl" {

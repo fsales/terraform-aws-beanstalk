@@ -33,7 +33,7 @@ resource "aws_ecs_task_definition" "app_api_tks" {
   container_definitions = jsonencode([
     {
       "name"      = var.containerName
-      "image"     = "docker.io/fosales/park-tech:0.0.1.6"
+      "image"     = "${var.image}:${var.tag}"
       "cpu"       = 256
       "memory"    = 512
       "essential" = true

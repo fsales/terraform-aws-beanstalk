@@ -40,6 +40,16 @@ variable "containerName" {
   description = "Nome do container"
 }
 
+variable "image" {
+  type = string
+  description = "Image do container"
+}
+
+variable "tag" {
+  type = string
+  description = "Tag da Image do container"
+}
+
 
 variable "environment" {
   type    = map(object({
