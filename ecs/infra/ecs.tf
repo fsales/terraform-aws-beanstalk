@@ -23,8 +23,8 @@ module "ecs" {
 }
 
 # task definition
-resource "aws_ecs_task_definition" "django_api_tks" {
-  family                   = "django-api-tks"
+resource "aws_ecs_task_definition" "app_api_tks" {
+  family                   = "tks-api-${var.nomeResource}"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = 256
@@ -33,14 +33,15 @@ resource "aws_ecs_task_definition" "django_api_tks" {
   container_definitions = jsonencode([
     {
       "name"      = "producao"
-      "image"     = "145439845532.dkr.ecr.us-west-2.amazonaws.com/producao:v1"
+      #"image"     = "docker.io/fosales/curso-terraform-aws-alura-clientes-leo-api-prodducao:v1"
+      "image"     = "docker.io/fosales/hello-world:latest"
       "cpu"       = 256
       "memory"    = 512
       "essential" = true
       "portMappings" : [
         {
-          "containerPort" = 8000
-          "hostPort"      = 8000
+          "containerPort" = var.containerPort
+          "hostPort"      = var.hostPort
         }
       ]
     }
@@ -48,16 +49,16 @@ resource "aws_ecs_task_definition" "django_api_tks" {
 }
 
 # service
-resource "aws_ecs_service" "django_api_ecs_svc" {
-  name            = "django-api-ecs-svc"
+resource "aws_ecs_service" "app_api_ecs_svc" {
+  name            = "svc-ecs-api-${var.nomeResource}"
   cluster         = module.ecs.cluster_id
-  task_definition = aws_ecs_task_definition.django_api_tks.arn
+  task_definition = aws_ecs_task_definition.app_api_tks.arn
   desired_count   = 3
      
   load_balancer {
-    target_group_arn = aws_lb_target_group.tg_ecs_django.arn
+    target_group_arn = aws_lb_target_group.tg_ecs_app.arn
     container_name   = "producao"
-    container_port   = 8000
+    container_port   = var.containerPort
   }
 
   ## Criar network (obrigatório quando trabalha com VPC)

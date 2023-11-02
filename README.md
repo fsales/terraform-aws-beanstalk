@@ -45,6 +45,10 @@ terraform plan
 terraform apply
 ```
 
+```sh
+terraform apply -auto-approve
+```
+
 ## Deploy
 
 1. criar o arquivo Dockerrun.aws

@@ -7,8 +7,8 @@ resource "aws_security_group" "sg_alb_ecs" {
 ## Criando regras
 resource "aws_security_group_rule" "entrada_alb" {
   type              = "ingress"
-  from_port         = 8000
-  to_port           = 8000
+  from_port         = var.albPort
+  to_port           = var.albPort
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.sg_alb_ecs.id
