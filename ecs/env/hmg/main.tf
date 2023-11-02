@@ -1,9 +1,9 @@
 module "hmg" {
   source = "../../infra"
 
-  nome_repositorio = "producao"
-  cargoIAM         = "producao"
-  ambiente         = "producao"
+  nome_repositorio = "homologacao"
+  cargoIAM         = "homologacao"
+  ambiente         = "homologacao"
   containerPort    = 8080
   hostPort         = 8080
   albPort          = 8080
